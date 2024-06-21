@@ -1,0 +1,115 @@
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()" >
+    <div>
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName">
+      <div *ngIf="(submitted || f['firstName'].touched) && f['firstName'].errors">
+        <div *ngIf="f['firstName'].errors['required']">First name is required</div>
+        <div *ngIf="f['firstName'].errors['minlength']">First name must be at least 2 characters</div>
+        <div *ngIf="f['firstName'].errors['pattern']">First name can only contain letters</div>
+      </div>
+    </div>
+    
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName">
+      <div *ngIf="(submitted || f['lastName'].touched) && f['lastName'].errors">
+        <div *ngIf="f['lastName'].errors['required']">Last name is required</div>
+        <div *ngIf="f['lastName'].errors['minlength']">Last name must be at least 2 characters</div>
+        <div *ngIf="f['lastName'].errors['pattern']">Last name can only contain letters</div>
+      </div>
+    </div>
+    
+    <div>
+      <label for="fullName">Full Name:</label>
+      <input id="fullName" formControlName="fullName">
+      <div *ngIf="(submitted || f['fullName'].touched) && f['fullName'].errors">
+        <div *ngIf="f['fullName'].errors['required']">Full name is required</div>
+        <div *ngIf="f['fullName'].errors['pattern']">Full name can only contain letters and spaces</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email">
+      <div *ngIf="(submitted || f['email'].touched) && f['email'].errors">
+        <div *ngIf="f['email'].errors['required']">Email is required</div>
+        <div *ngIf="f['email'].errors['email']">Invalid email</div>
+      </div>
+    </div>
+  
+  
+  <div>
+    <label for="age">Age:</label>
+    <input id="age" formControlName="age">
+    <div *ngIf="(submitted || f['age'].touched) && f['age'].errors">
+      <div *ngIf="f['age'].errors['required']">Age is required</div>
+      <div *ngIf="f['age'].errors['pattern']">Invalid age</div>
+      <div *ngIf="f['age'].errors['min']">Age must be at least 18</div>
+    </div>
+  </div>
+  
+  <div>
+    <label for="phoneNumber">Phone Number:</label>
+    <input id="phoneNumber" formControlName="phoneNumber">
+    <div *ngIf="(submitted || f['phoneNumber'].touched) && f['phoneNumber'].errors">
+      <div *ngIf="f['phoneNumber'].errors['required']">Phone number is required</div>
+      <div *ngIf="f['phoneNumber'].errors['pattern']">Invalid phone number</div>
+    </div>
+  </div>
+
+  <div>
+    <label for="dateTime">Date and Time:</label>
+    <input id="dateTime" type="datetime-local" formControlName="dateTime">
+    <div *ngIf="(submitted || f['dateTime'].touched) && f['dateTime'].errors">
+      <div *ngIf="f['dateTime'].errors['required']">Date and Time are required</div>
+      <div *ngIf="f['dateTime'].errors['pattern']">Invalid date and time format</div>
+    </div>
+  </div>
+  
+  <div>
+    <label for="profileImage">Profile Image:</label>
+    <input id="profileImage" type="file" (change)="onFileSelected($event)">
+  </div>
+
+  
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" type="password" formControlName="password">
+      <div *ngIf="(submitted || f['password'].touched) && f['password'].errors">
+        <div *ngIf="f['password'].errors['required']">Password is required</div>
+        <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+        <div *ngIf="f['password'].errors['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one number</div>
+      </div>
+    </div>
+  
+    <div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword">
+      <div *ngIf="(submitted || f['confirmPassword'].touched) && f['confirmPassword'].errors">
+        <div *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required</div>
+        <div *ngIf="f['confirmPassword'].errors['mustMatch']">Passwords must match</div>
+      </div>
+    </div>
+
+
+  
+    <button type="submit">Submit</button>
+  </form>
+  
+
+  <ul>
+    <li *ngFor="let student of students">
+      {{ student.name }} - {{ student.email }}
+      <button (click)="selectStudent(student)">Select</button>
+    </li>
+  </ul>
+  
+  <!-- Selected Student Details -->
+  <div *ngIf="selectedStudent">
+    <h2>Selected Student Details</h2>
+    <p>Name: {{ selectedStudent.fullName }}</p>
+    <p>Email: {{ selectedStudent.email }}</p>
+    <p>Age: {{ selectedStudent.age }}</p>
+    <button (click)="updateStudent()">Update</button>
+    <button (click)="deleteStudent()">Delete</button>
+  </div>
